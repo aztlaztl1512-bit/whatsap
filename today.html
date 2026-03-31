@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحدي اليوم - أ/ عبدالعزيز الفيفي 🏆</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding-top: 100px; background-color: #f8f9fa; color: #333; }
+        .loader { border: 6px solid #e1e1e1; border-top: 6px solid #27ae60; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .msg { font-size: 1.2rem; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="msg">🏆 جاري فتح تحدي اليوم...</div>
+    <div class="loader"></div>
+    <p>سيتم تحويلك تلقائياً إلى النموذج المحدث لهذا اليوم</p>
+
+    <script>
+        // روابط التحدي السبعة الثابتة التي حددتها
+        const dailyLinks = [
+            "https://aztlaztl1512-bit.github.io/Zzz-1/", // الرابط 1 (سيفتح يوم الأحد)
+            "https://aztlaztl1512-bit.github.io/Zzz-2/", // الرابط 2 (سيفتح يوم الإثنين)
+            "https://aztlaztl1512-bit.github.io/Zzz-3/", // الرابط 3 (سيفتح يوم الثلاثاء)
+            "https://aztlaztl1512-bit.github.io/Zzz-4/", // الرابط 4 (سيفتح يوم الأربعاء)
+            "https://aztlaztl1512-bit.github.io/Zzz-5/", // الرابط 5 (سيفتح يوم الخميس)
+            "https://aztlaztl1512-bit.github.io/Zzz-6/", // الرابط 6 (سيفتح يوم الجمعة)
+            "https://aztlaztl1512-bit.github.io/Zzz-7/"  // الرابط 7 (سيفتح يوم السبت)
+        ];
+
+        function redirectToChallenge() {
+            const now = new Date();
+            // دالة getDay تعطي: 0 للأحد، 1 للإثنين، ... 6 للسبت
+            const dayOfWeek = now.getDay(); 
+            
+            // اختيار الرابط المناسب بناءً على رقم اليوم
+            const targetLink = dailyLinks[dayOfWeek];
+
+            // تحويل الطالب بعد تأخير بسيط لإظهار الحركة
+            setTimeout(() => {
+                window.location.href = targetLink;
+            }, 1000);
+        }
+
+        // تشغيل الدالة فور تحميل الصفحة
+        window.onload = redirectToChallenge;
+    </script>
+</body>
+</html>
