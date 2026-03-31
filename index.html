@@ -55,7 +55,7 @@
     <div class="container">
         <h2>🏆 تحدي اليوم المتجدد 🏆</h2>
         
-        <!-- هنا يظهر اليوم والتاريخ الميلادي فقط -->
+        <!-- هنا يظهر الميلادي فقط مع حرف م -->
         <div id="fullDate" class="date-box">جاري تحديد التاريخ...</div>
         
         <p style="color: #7f8c8d;">بطل اليوم هو من يحصد الدرجة الكاملة 🔥</p>
@@ -73,12 +73,18 @@
         function displayDate() {
             const now = new Date();
             
-            // إعداد التاريخ الميلادي فقط (مثل: الثلاثاء، ٣١ مارس ٢٠٢٦ م)
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const gregDate = now.toLocaleDateString('ar-SA', options);
+            // استخراج اسم اليوم (الثلاثاء)
+            const dayName = now.toLocaleDateString('ar-SA', { weekday: 'long' });
+            
+            // استخراج التاريخ الميلادي (٣١ مارس ٢٠٢٦) بشكل يجبره على التقويم الغريغوري
+            const gregDate = new Intl.DateTimeFormat('ar-SA-u-ca-gregory', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            }).format(now);
 
-            // عرض التاريخ مع إضافة حرف "م" في النهاية
-            document.getElementById('fullDate').innerHTML = gregDate + " م";
+            // عرض النتيجة النهائية مع حرف "م"
+            document.getElementById('fullDate').innerHTML = dayName + "، " + gregDate + " م";
         }
 
         const dailyLinks = {
