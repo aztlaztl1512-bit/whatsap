@@ -9,7 +9,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             text-align: center; 
             padding: 20px; 
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: #ffffff;
             color: #2c3e50;
             margin: 0;
             height: 100vh;
@@ -19,23 +19,36 @@
             align-items: center;
         }
         .container {
-            background: white;
+            background: #ffffff;
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 500px;
-            width: 90%;
+            max-width: 550px;
+            width: 95%;
+            margin-top: -10vh; /* رفع المحتوى قليلاً للأعلى */
+        }
+        .title {
+            color: #4b0082; /* لون بنفسجي غامق كما في الصورة */
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
         .date-box {
-            background: #fff9f0;
-            border: 2px solid #e67e22;
+            background: #fff9f0; /* خلفية برتقالية فاتحة جداً */
+            border: 2px solid #e67e22; /* إطار برتقالي */
             border-radius: 12px;
             padding: 15px;
             margin: 20px 0;
-            color: #d35400;
+            color: #d35400; /* لون برتقالي غامق للنص */
             font-weight: bold;
             font-size: 1.1rem;
             line-height: 1.6;
+        }
+        .date-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* المسافة بين التاريخين */
+            flex-wrap: wrap; /* ليتناسب مع الشاشات الصغيرة */
         }
         .loader { 
             border: 5px solid #f3f3f3; 
@@ -47,68 +60,81 @@
             margin: 20px auto; 
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        h2 { color: #2c3e50; margin: 0; font-size: 1.6rem; }
-        .footer { margin-top: 20px; font-weight: bold; color: #2c3e50; border-top: 1px solid #eee; padding-top: 15px; }
+        .footer { 
+            margin-top: 25px; 
+            font-weight: bold; 
+            color: #2c3e50; 
+            border-top: 1px solid #eee; 
+            padding-top: 15px; 
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>🏆 تحدي اليوم المتجدد 🏆</h2>
+        <div class="title">🏆 ( تحدي اليوم ) 🏆</div>
         
-        <div id="fullDate" class="date-box">جاري ضبط التاريخ...</div>
+        <div class="date-box">
+            <div id="dateText" class="date-text">
+                <span id="greg" style="color: #2c3e50;">جاري تحديد التاريخ...</span>
+                <span style="color: #e67e22;">|</span>
+                <span id="hijri"></span>
+            </div>
+        </div>
         
         <div class="loader"></div>
-        <p id="statusMsg" style="color: #7f8c8d;">أهلاً بك يا بطل.. جاري تحويلك للاختبار</p>
+        <p style="color: #7f8c8d; font-size: 0.9rem;">أهلاً بك يا بطل.. جاري تحويلك لاختبار هذا اليوم</p>
         
         <div class="footer">
-            ✨ أ / عبدالعزيز الفيفي<br>
-            ثانوية الأمير عبدالمجيد 🎓
+            ✨ أ / عبدالعزيز الفيفي - ثانوية الأمير عبدالمجيد 🎓
         </div>
     </div>
 
     <script>
-        function displayDate() {
+        // دالة لعرض التاريخ كما في الصورة المرفقة
+        function getFormattedDate() {
             const now = new Date();
             
-            // 1. الحصول على اليوم (الثلاثاء)
-            const dayName = now.toLocaleDateString('ar-SA', { weekday: 'long' });
+            // 1. التاريخ الميلادي (٣١ مارس ٢٠٢٦)
+            const greg = new Intl.DateTimeFormat('ar-SA', {
+                day: 'numeric', month: 'long', year: 'numeric'
+            }).format(now);
             
-            // 2. الحصول على التاريخ الهجري (١٢ شوال ١٤٤٧ هـ)
-            const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {
+            // 2. التاريخ الهجري (١٢ شوال ١٤٤٧ هـ)
+            const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {
                 day: 'numeric', month: 'long', year: 'numeric'
             }).format(now);
 
-            // 3. الحصول على التاريخ الميلادي (٣١ مارس ٢٠٢٦ م)
-            const gregDate = new Intl.DateTimeFormat('ar-SA', {
-                day: 'numeric', month: 'long', year: 'numeric'
-            }).format(now);
-
-            // دمج الجميع في التنسيق المطلوب
-            const finalFormat = dayName + "، " + hijriDate + " هـ | " + gregDate + " م";
-            document.getElementById('fullDate').innerText = finalFormat;
+            // تطبيق النص على العناصر
+            document.getElementById('greg').innerText = greg;
+            document.getElementById('hijri').innerText = hijri + " هـ";
         }
 
-        // خريطة الروابط المتزامنة
-        const dailyLinks = {
-            2: "https://aztlaztl1512-bit.github.io/Zzz-7/", // الثلاثاء
-            3: "https://aztlaztl1512-bit.github.io/Zzz-1/", // الأربعاء
-            4: "https://aztlaztl1512-bit.github.io/Zzz-2/", // الخميس
-            5: "https://aztlaztl1512-bit.github.io/Zzz-3/", // الجمعة
-            6: "https://aztlaztl1512-bit.github.io/Zzz-4/", // السبت
-            0: "https://aztlaztl1512-bit.github.io/Zzz-5/", // الأحد
-            1: "https://aztlaztl1512-bit.github.io/Zzz-6/"  // الإثنين
-        };
-
         function startRedirect() {
-            displayDate();
+            // عرض التاريخ المزدوج
+            getFormattedDate();
+
             const now = new Date();
-            const dayNum = now.getDay();
+            const dayNum = now.getDay(); 
+
+            // روابط المزامنة المعتمدة
+            const dailyLinks = {
+                2: "https://aztlaztl1512-bit.github.io/Zzz-7/", // الثلاثاء
+                3: "https://aztlaztl1512-bit.github.io/Zzz-1/", // الأربعاء
+                4: "https://aztlaztl1512-bit.github.io/Zzz-2/", // الخميس
+                5: "https://aztlaztl1512-bit.github.io/Zzz-3/", // الجمعة
+                6: "https://aztlaztl1512-bit.github.io/Zzz-4/", // السبت
+                0: "https://aztlaztl1512-bit.github.io/Zzz-5/", // الأحد
+                1: "https://aztlaztl1512-bit.github.io/Zzz-6/"  // الإثنين
+            };
+
             const targetLink = dailyLinks[dayNum];
 
+            // تحويل بعد 3 ثوانٍ ليقرأ الطالب التاريخ
             setTimeout(() => {
                 window.location.href = targetLink;
-            }, 3000); // 3 ثوانٍ ليعيش الطالب تجربة التحدي ويقرأ التاريخ
+            }, 3000);
         }
 
         window.onload = startRedirect;
