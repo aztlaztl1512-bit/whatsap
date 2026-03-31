@@ -27,7 +27,7 @@
         }
         .loader { 
             border: 5px solid #f3f3f3; 
-            border-top: 5px solid #27ae60; 
+            border-top: 5px solid #3498db; 
             border-radius: 50%; 
             width: 50px; 
             height: 50px; 
@@ -35,7 +35,7 @@
             margin: 20px auto; 
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        h2 { color: #27ae60; margin-bottom: 10px; }
+        h2 { color: #2980b9; margin-bottom: 10px; }
         p { font-size: 1.1rem; color: #7f8c8d; }
         .footer { margin-top: 20px; font-weight: bold; color: #2c3e50; border-top: 1px solid #eee; padding-top: 15px; }
     </style>
@@ -44,9 +44,9 @@
 
     <div class="container">
         <h2>🏆 تحدي اليوم 🏆</h2>
-        <p>بطل اليوم هو من يجتاز هذا التحدي..</p>
+        <p>جاري المزامنة مع المنصة..</p>
         <div class="loader"></div>
-        <p id="dayName"></p>
+        <p id="statusMsg">لحظات ويفتح التحدي الخاص بك...</p>
         
         <div class="footer">
             ✨ أ / عبدالعزيز الفيفي<br>
@@ -55,30 +55,27 @@
     </div>
 
     <script>
-        // الروابط السبعة الثابتة
-        const dailyLinks = [
-            "https://aztlaztl1512-bit.github.io/Zzz-1/", // الأحد
-            "https://aztlaztl1512-bit.github.io/Zzz-2/", // الإثنين
-            "https://aztlaztl1512-bit.github.io/Zzz-3/", // الثلاثاء
-            "https://aztlaztl1512-bit.github.io/Zzz-4/", // الأربعاء
-            "https://aztlaztl1512-bit.github.io/Zzz-5/", // الخميس
-            "https://aztlaztl1512-bit.github.io/Zzz-6/", // الجمعة
-            "https://aztlaztl1512-bit.github.io/Zzz-7/"  // السبت
-        ];
-
-        const days = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+        // الروابط السبعة مرتبة لتتوافق مع نظام المنصة الخاص بك
+        const dailyLinks = {
+            2: "https://aztlaztl1512-bit.github.io/Zzz-7/", // الثلاثاء (اليوم)
+            3: "https://aztlaztl1512-bit.github.io/Zzz-1/", // الأربعاء (غداً)
+            4: "https://aztlaztl1512-bit.github.io/Zzz-2/", // الخميس
+            5: "https://aztlaztl1512-bit.github.io/Zzz-3/", // الجمعة
+            6: "https://aztlaztl1512-bit.github.io/Zzz-4/", // السبت
+            0: "https://aztlaztl1512-bit.github.io/Zzz-5/", // الأحد
+            1: "https://aztlaztl1512-bit.github.io/Zzz-6/"  // الإثنين
+        };
 
         function startRedirect() {
             const now = new Date();
-            const dayNum = now.getDay(); // 0 للأحد، 1 للإثنين... إلخ
+            const dayNum = now.getDay(); // 0=الأحد, 1=الإثنين, 2=الثلاثاء...
             
-            // عرض اسم اليوم للتحفيز
-            document.getElementById('dayName').innerText = "جاري فتح تحدي يوم " + days[dayNum];
+            const targetLink = dailyLinks[dayNum];
 
-            // توجيه الطالب بعد 1.5 ثانية
+            // تحويل فوري مع تأخير بسيط للمؤثرات البصرية
             setTimeout(() => {
-                window.location.href = dailyLinks[dayNum];
-            }, 1500);
+                window.location.href = targetLink;
+            }, 1200);
         }
 
         window.onload = startRedirect;
