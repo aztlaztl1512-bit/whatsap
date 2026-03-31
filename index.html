@@ -23,31 +23,32 @@
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 450px;
+            max-width: 500px;
             width: 90%;
         }
         .date-box {
-            background: #f8f9fa;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 15px 0;
-            color: #2980b9;
+            background: #fff9f0;
+            border: 2px solid #e67e22;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #d35400;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
         .loader { 
-            border: 4px solid #f3f3f3; 
-            border-top: 4px solid #3498db; 
+            border: 5px solid #f3f3f3; 
+            border-top: 5px solid #e67e22; 
             border-radius: 50%; 
-            width: 40px; 
-            height: 40px; 
+            width: 45px; 
+            height: 45px; 
             animation: spin 1s linear infinite; 
             margin: 20px auto; 
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        h2 { color: #2c3e50; margin: 10px 0; font-size: 1.5rem; }
-        .footer { margin-top: 20px; font-weight: bold; color: #2c3e50; border-top: 1px solid #eee; padding-top: 15px; font-size: 0.9rem; }
+        h2 { color: #2c3e50; margin: 0; font-size: 1.6rem; }
+        .footer { margin-top: 20px; font-weight: bold; color: #2c3e50; border-top: 1px solid #eee; padding-top: 15px; }
     </style>
 </head>
 <body>
@@ -55,12 +56,10 @@
     <div class="container">
         <h2>🏆 تحدي اليوم المتجدد 🏆</h2>
         
-        <div id="fullDate" class="date-box">جاري تحديد التاريخ...</div>
-        
-        <p style="color: #7f8c8d;">بطل اليوم هو من يحصد الدرجة الكاملة 🔥</p>
+        <div id="fullDate" class="date-box">جاري ضبط التاريخ...</div>
         
         <div class="loader"></div>
-        <p id="statusMsg" style="font-size: 0.9rem;">جاري تحويلك للتحدي المحدث...</p>
+        <p id="statusMsg" style="color: #7f8c8d;">أهلاً بك يا بطل.. جاري تحويلك للاختبار</p>
         
         <div class="footer">
             ✨ أ / عبدالعزيز الفيفي<br>
@@ -69,23 +68,28 @@
     </div>
 
     <script>
-        // دالة لعرض التاريخ الهجري والميلادي تلقائياً
         function displayDate() {
             const now = new Date();
             
-            // التاريخ الميلادي
-            const gregOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const gregDate = now.toLocaleDateString('ar-SA', gregOptions);
+            // 1. الحصول على اليوم (الثلاثاء)
+            const dayName = now.toLocaleDateString('ar-SA', { weekday: 'long' });
             
-            // التاريخ الهجري (تقريبي برمجي)
+            // 2. الحصول على التاريخ الهجري (١٢ شوال ١٤٤٧ هـ)
             const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {
                 day: 'numeric', month: 'long', year: 'numeric'
             }).format(now);
 
-            document.getElementById('fullDate').innerHTML = gregDate + "<br>" + hijriDate;
+            // 3. الحصول على التاريخ الميلادي (٣١ مارس ٢٠٢٦ م)
+            const gregDate = new Intl.DateTimeFormat('ar-SA', {
+                day: 'numeric', month: 'long', year: 'numeric'
+            }).format(now);
+
+            // دمج الجميع في التنسيق المطلوب
+            const finalFormat = dayName + "، " + hijriDate + " هـ | " + gregDate + " م";
+            document.getElementById('fullDate').innerText = finalFormat;
         }
 
-        // خريطة الروابط المتزامنة مع منصتك
+        // خريطة الروابط المتزامنة
         const dailyLinks = {
             2: "https://aztlaztl1512-bit.github.io/Zzz-7/", // الثلاثاء
             3: "https://aztlaztl1512-bit.github.io/Zzz-1/", // الأربعاء
@@ -104,7 +108,7 @@
 
             setTimeout(() => {
                 window.location.href = targetLink;
-            }, 2500); // زيادة الوقت قليلاً ليقرأ الطالب التاريخ
+            }, 3000); // 3 ثوانٍ ليعيش الطالب تجربة التحدي ويقرأ التاريخ
         }
 
         window.onload = startRedirect;
