@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحدي اليوم - أ/ عبدالعزيز الفيفي 🏆</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            padding: 100px 20px; 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2c3e50;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 400px;
+        }
+        .loader { 
+            border: 5px solid #f3f3f3; 
+            border-top: 5px solid #27ae60; 
+            border-radius: 50%; 
+            width: 50px; 
+            height: 50px; 
+            animation: spin 1s linear infinite; 
+            margin: 20px auto; 
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        h2 { color: #27ae60; margin-bottom: 10px; }
+        p { font-size: 1.1rem; color: #7f8c8d; }
+        .footer { margin-top: 20px; font-weight: bold; color: #2c3e50; border-top: 1px solid #eee; padding-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🏆 تحدي اليوم 🏆</h2>
+        <p>بطل اليوم هو من يجتاز هذا التحدي..</p>
+        <div class="loader"></div>
+        <p id="dayName"></p>
+        
+        <div class="footer">
+            ✨ أ / عبدالعزيز الفيفي<br>
+            ثانوية الأمير عبدالمجيد 🎓
+        </div>
+    </div>
+
+    <script>
+        // الروابط السبعة الثابتة
+        const dailyLinks = [
+            "https://aztlaztl1512-bit.github.io/Zzz-1/", // الأحد
+            "https://aztlaztl1512-bit.github.io/Zzz-2/", // الإثنين
+            "https://aztlaztl1512-bit.github.io/Zzz-3/", // الثلاثاء
+            "https://aztlaztl1512-bit.github.io/Zzz-4/", // الأربعاء
+            "https://aztlaztl1512-bit.github.io/Zzz-5/", // الخميس
+            "https://aztlaztl1512-bit.github.io/Zzz-6/", // الجمعة
+            "https://aztlaztl1512-bit.github.io/Zzz-7/"  // السبت
+        ];
+
+        const days = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+
+        function startRedirect() {
+            const now = new Date();
+            const dayNum = now.getDay(); // 0 للأحد، 1 للإثنين... إلخ
+            
+            // عرض اسم اليوم للتحفيز
+            document.getElementById('dayName').innerText = "جاري فتح تحدي يوم " + days[dayNum];
+
+            // توجيه الطالب بعد 1.5 ثانية
+            setTimeout(() => {
+                window.location.href = dailyLinks[dayNum];
+            }, 1500);
+        }
+
+        window.onload = startRedirect;
+    </script>
+</body>
+</html>
